@@ -1,42 +1,79 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Harrison Varnadoe | Software Engineer</title>
+<meta name="description" content="Interactive portfolio of Harrison Varnadoe, a software engineer working in C#, Go, and machine learning. Click a planet to explore experience and projects.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <div class="portrait">
-            <img src="includes/img1.JPEG" alt="Unable to Load Image">
-        </div>        
-        <div>
-            <h1>Harrison Varnadoe</h1>
-            <p>Currently I am computer science student at Kennesaw State University, graduating May 2025. Most recently I participated in an internship with NCR Voyix contributing to web development and API integration with Elasticsearch. I have a broad foundation in Java, C#, and Angular. Combining my technical proficiency with leadership skills gained as an Eagle Scout and a team leader at Glisson Camp and Retreat Ministries gives me a unique perspective on working in collaborative settings. Additionally, I've had hands-on experience in computer and cellphone repair, showcasing my problem-solving abilities and adaptability.</p>
-        </div>       
-    </div>
-    <div class="title"><h1>Projects</h1></div>
-    <div class="container">
-        <img src="includes/pathfinder.png" alt="Unable to Load Image">        
-        <div>
-            <h1>Senior Project</h1>
-            <p>My senior project was Path Finder, a Flutter mobile application that allows users to traverse a map through predefined nodes. The app focuses on point-to-point traversal with interactive QR code checkpoints for an engaging map exploration experience.</p>
-            <a href="https://github.com/INDY-5-Team/Path_Finder">Visit our repo here</a>
-        </div>       
-    </div>
-    <div class="container">
-        <img src="includes/iris_ann.png" alt="Unable to Load Image">        
-        <div>
-            <h1>Iris Artificial Neural Network</h1>
-            <p>My project is a C# implementation of an Artificial Neural Network (ANN) trained on the famous Iris dataset using gradient descent. The project was originally created as a part of a class assignment and showcases the core concepts of neural network training.</p>
-            <a href="https://github.com/hvarnadoe/Iris-Data-Set-Ann">Visit my repo here</a>
-        </div>       
-    </div>
-    <div class="container">
-        <img src="includes/image_converter.png" alt="Unable to Load Image">        
-        <div>
-            <h1>Python Utility Applications</h1>
-            <p>This is a collection of small Python applications that assist in common tasks such as changing the file extension on photos, converting photos from HEIC to a standard format, and merging PDF documents.</p>
-            <a href="https://github.com/hvarnadoe/varnadoeOffice">Visit my repo here</a>
-        </div>       
-    </div>
+<canvas id="stars" aria-hidden="true"></canvas>
+
+<header class="top">
+  <a class="brand" href="#" id="brand">HV<span>/</span>MISSION CONTROL</a>
+  <nav>
+    <button id="logBtn" type="button">Mission Log</button>
+    <a href="Harrison_Varnadoe_Resume.pdf" target="_blank" rel="noopener">Resume</a>
+    <a href="https://github.com/hvarnadoe" target="_blank" rel="noopener">GitHub</a>
+    <a href="https://www.linkedin.com/in/harrison-varnadoe-587624312" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="mailto:harrison.varnadoe@outlook.com">Contact</a>
+  </nav>
+</header>
+
+<main id="space" aria-label="Interactive solar system of Harrison Varnadoe's experience and projects">
+  <div id="orbits" aria-hidden="true"></div>
+  <button id="sun" type="button" aria-label="About Harrison Varnadoe">
+    <span class="sun-core"></span>
+    <span class="sun-text"><b>HARRISON<br>VARNADOE</b><i>Software Engineer</i></span>
+  </button>
+  <div id="planets"></div>
+</main>
+
+<div class="hint" id="hint">Click a planet to explore &middot; hover to freeze orbit</div>
+
+<ul class="legend" aria-label="Legend">
+  <li><span class="dot exp"></span>Experience</li>
+  <li><span class="dot proj"></span>Projects</li>
+  <li><span class="dot acad"></span>Academic &amp; extras</li>
+</ul>
+
+<aside id="panel" class="panel" role="dialog" aria-modal="false" aria-labelledby="pTitle" hidden>
+  <button class="close" id="pClose" type="button" aria-label="Close">&times;</button>
+  <div class="p-kicker" id="pKicker"></div>
+  <h2 id="pTitle"></h2>
+  <p class="p-sub" id="pSub"></p>
+  <div id="pBody"></div>
+  <ul class="tags" id="pTags"></ul>
+  <div class="p-links" id="pLinks"></div>
+</aside>
+
+<section id="log" class="panel wide" role="dialog" aria-modal="true" aria-labelledby="logTitle" hidden>
+  <button class="close" id="logClose" type="button" aria-label="Close">&times;</button>
+  <h2 id="logTitle">Mission Log</h2>
+  <p class="p-sub">Every destination in one list.</p>
+  <div id="logList"></div>
+</section>
+
+<section id="arcade" class="panel wide" role="dialog" aria-modal="true" aria-labelledby="arcTitle" hidden>
+  <button class="close" id="arcClose" type="button" aria-label="Close">&times;</button>
+  <h2 id="arcTitle">Asteroid Defense</h2>
+  <p class="p-sub">Move with mouse, touch, or arrow keys. Your ship fires automatically.</p>
+  <canvas id="game" width="640" height="420"></canvas>
+  <div class="game-bar"><span id="score">Score 0</span><span id="best">Best 0</span><button type="button" id="restart">Restart</button></div>
+</section>
+
+<noscript>
+  <div class="noscript">
+    <h1>Harrison Varnadoe, Software Engineer</h1>
+    <p>Junior Software Engineer at Plume Security (C#, Go, Win32, machine learning). Previously a software engineering intern at NCR Voyix. B.S. in Computer Science, Kennesaw State University.</p>
+    <p><a href="Harrison_Varnadoe_Resume.pdf">Resume (PDF)</a> &middot; <a href="https://github.com/hvarnadoe">GitHub</a> &middot; <a href="https://www.linkedin.com/in/harrison-varnadoe-587624312">LinkedIn</a> &middot; <a href="mailto:harrison.varnadoe@outlook.com">Email</a></p>
+  </div>
+</noscript>
+
+<script src="main.js"></script>
 </body>
 </html>
